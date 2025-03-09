@@ -1,4 +1,4 @@
-/* OpenFOAM k file from SSIIM 2  plastic test                                    test  */
+/* OpenFOAM nut file from SSIIM 2  sandfangmodell - 1992-4-29                      title field  */
 
 FoamFile 
 {
@@ -6,41 +6,46 @@ FoamFile
     format       ascii;
     class        volScalarField;
     location     "0";
-    object       k;
+    object       C;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -2 0 0 0 0];
+dimensions      [0 0 0 0 0 0 0];
 
-
-internalField   uniform 0.0013204633500000001;
+internalField   uniform 0;
 
 boundaryField
 {
     bedWall
     {
-        type            kqRWallFunction;
-		value           uniform 0.0013204633500000001;
+        type            zeroGradient;
     }
     leftSide
     {
-        type            kqRWallFunction;
-		value           uniform 0.0013204633500000001;
+        type            zeroGradient;
     }
     rightSide
     {
-        type            kqRWallFunction;
-		value           uniform 0.0013204633500000001;
-    }
-    freeSurface
-    {
         type            zeroGradient;
     }
+/*    freeSurface
+    {
+        type            zeroSedimentationFlux;
+		schmidtFreeSurface 0.01;
+		refValue uniform 0.0;
+		refGradient uniform 0.0;
+		valueFraction uniform 0.0;
+    }*/
+
+	freeSurface
+    {
+		type            zeroGradient;
+	}
     inletWater
     {
         type            fixedValue;
-        value           uniform 0.0013204633500000001;
+        value           uniform 0.000105;
     }
     outletWater
     {

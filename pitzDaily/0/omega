@@ -2,12 +2,12 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Version:  6
+    \\  /    A nd           | Version:  dev
      \\/     M anipulation  |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version     2.0;
+    version      2.0;
     format      ascii;
     class       volScalarField;
     location    "0";
@@ -15,32 +15,42 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 -1 0 0 0 0];
+dimensions      [0 0 -1 0 0 0 0]; // turbulent kinetic energy dissipation rate in 1/s
 
-internalField   uniform 440.15;
+internalField   uniform 1.9197;
 
 boundaryField
 {
-    inlet
+    freeSurface
     {
         type            fixedValue;
-        value           $internalField;
+		value           uniform 1.9197;
     }
-    outlet
+    bedWall
+    {
+        type            omegaWallFunction;
+        value           uniform 1.9197;
+    }
+    leftSide
+    {
+        type            omegaWallFunction;
+        value           uniform 1.9197;
+    }
+    rightSide
+    {
+        type            omegaWallFunction;
+        value           uniform 1.9197;
+    }
+    inletWater
+    {
+        type            fixedValue;
+        value           uniform 1.9197;
+    }
+    outletWater
     {
         type            zeroGradient;
     }
-    upperWall
-    {
-        type            omegaWallFunction;
-        value           $internalField;
-    }
-    lowerWall
-    {
-        type            omegaWallFunction;
-        value           $internalField;
-    }
-    frontAndBack
+    defaultFaces
     {
         type            empty;
     }
